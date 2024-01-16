@@ -24,6 +24,35 @@ pipeline {
             }
         }
 
+        stage('Delete workspace before build starts') {
+            steps {
+                echo 'Deleting workspace'
+                deleteDir()
+            }
+        }
+
+        stage('Build docker image') {
+            steps {
+                sh 'docker-compose build'
+            }
+        }
+
+        stage('Push docker image to DockerHub') {
+            steps{
+                withDockerRegistry(credentialsId: 'docker-hub-cred', url: 'https://index.docker.io/v1/') {
+                    sh '''
+                        docker push danwhite123/nginx-image:latest danwhite123/apache-image:latest
+                    '''
+                }
+            }
+        }
+        stage('Delete docker image locally') {
+            steps{
+                sh 'docker rmi danwhite123/nginx-image:latest danwhite123/apache-image:latest'
+            }
+        }
+
+
 
 //         stage('Run Ansible Playbook') {
 //             agent {

@@ -3,6 +3,7 @@ version: "3"
 services:
   nginx_container:
     container_name: nginx
+    image: danwhite123/nginx-image:latest
     build:
       context: .
       dockerfile: Dockerfile_nginx
@@ -12,6 +13,7 @@ services:
 
   apache_container:
     container_name: apache
+    image: danwhite123/apache-image:latest
     build:
       context: .
       dockerfile: Dockerfile_apache
