@@ -21,8 +21,12 @@ pipeline {
             steps {
                 sh "echo $USER"
                 sh 'docker version'
+                sh "pwd"
+                sh "ls -la"
             }
         }
+
+
 
         stage('Build docker image') {
             steps {
