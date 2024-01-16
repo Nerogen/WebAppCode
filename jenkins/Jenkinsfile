@@ -24,20 +24,6 @@ pipeline {
             }
         }
 
-        stage('Delete workspace before build starts') {
-            steps {
-                echo 'Deleting workspace'
-                deleteDir()
-            }
-        }
-
-        stage('Test') {
-            steps {
-                sh "ls -la "
-                sh "pwd"
-            }
-        }
-
         stage('Build docker image') {
             steps {
                 sh 'docker-compose build .'
