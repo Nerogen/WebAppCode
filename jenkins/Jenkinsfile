@@ -31,6 +31,7 @@ pipeline {
             steps {
                 ansiblePlaybook(
                     playbook: 'ansible/installer_of_docker_and_jdk.yml',
+                    cfg: 'ansible/ansible.cfg'
                 )
             }
         }
