@@ -59,15 +59,19 @@ pipeline {
             agent {
                 label 'ubuntu'
             }
-            // Check if the Apache container exists
-            def apacheContainerExists = sh(script: 'docker ps -q -f name=apache', returnStatus: true).trim() == 0 ? false : true
-            steps {
-                // Stop and remove the Apache container if it exists
-                if (apacheContainerExists) {
+            when {
+                expression {
+                    // Check if the Apache container exists
+                    def apacheContainerExists = sh(script: 'docker ps -q -f name=apache', returnStatus: true).trim() == 0 ? false : true
+                    if (apacheContainerExists) {
                     sh 'docker stop apache'
                     sh 'docker rm apache'
                     sh 'docker rmi danwhite123/apache-image:latest'
                 }
+                }
+                }
+            steps {
+
                 sh 'docker run -d -p 8080:80 --name apache --network=my_network danwhite123/apache-image:latest'
             }
         }
