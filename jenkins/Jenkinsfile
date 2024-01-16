@@ -47,17 +47,23 @@ pipeline {
         }
 
 
-        stage('Run docker containers') {
+        stage('Run docker container nginx') {
             agent {
                 label 'ubuntu'
             }
             steps {
-                sh 'docker run -d -p 80:80 danwhite123/nginx-image:latest && docker run -d -p 8080:80 danwhite123/apache-image:latest'
+                sh 'docker run -d -p 80:80 danwhite123/nginx-image:latest'
             }
         }
 
-
-
+        stage('Run docker container apache') {
+            agent {
+                label 'ubuntu'
+            }
+            steps {
+                sh 'docker run -d -p 8080:80 danwhite123/apache-image:latest'
+            }
+        }
 
 //         stage('Run Ansible Playbook') {
 //             agent {
