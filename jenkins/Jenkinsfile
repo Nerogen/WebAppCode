@@ -23,5 +23,13 @@ pipeline {
                 sh 'docker version'
             }
         }
+
+        stage('Run Ansible Playbook') {
+            steps {
+                ansiblePlaybook(
+                    playbook: 'ansible/installer_of_docker_and_jdk.yml',
+                )
+            }
+        }
     }
 }
