@@ -9,7 +9,7 @@ pipeline {
             }
             steps {
                 ansiblePlaybook(
-                    credentialsId: 'private-key-ansible'
+                    credentialsId: 'private-key-ansible',
                     playbook: 'ansible/installer_of_docker_and_jdk.yml',
                     inventory: 'ansible/hosts.txt',
                     hostKeyChecking: 'false'
