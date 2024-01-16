@@ -59,7 +59,7 @@ pipeline {
             agent {
                 label 'ubuntu'
             }
-            steps {
+            script {
                 // Check if the Apache container exists
                 def apacheContainerExists = sh(script: 'docker ps -q -f name=apache', returnStatus: true).trim() == 0 ? false : true
 
@@ -77,7 +77,7 @@ pipeline {
             agent {
                 label 'ubuntu'
             }
-            steps {
+            script {
                 // Check if the Nginx container exists
                 def nginxContainerExists = sh(script: 'docker ps -q -f name=nginx', returnStatus: true).trim() == 0 ? false : true
 
