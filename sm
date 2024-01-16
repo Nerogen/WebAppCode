@@ -22,7 +22,7 @@ pipeline {
                 sh "echo $USER"
                 sh 'docker version'
                 sh "pwd"
-                sh "ls -la"
+                sh "ls -la ./jenkins"
             }
         }
 
