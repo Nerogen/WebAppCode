@@ -3,6 +3,20 @@ pipeline {
 
     stages {
 
+        stage('Run Ansible Playbook') {
+            agent {
+                label 'master'
+            }
+            steps {
+                ansiblePlaybook(
+                    credentialsId: 'private-key-ansible'
+                    playbook: 'ansible/installer_of_docker_and_jdk.yml',
+                    inventory: 'ansible/hosts.txt',
+                    hostKeyChecking: 'false'
+                )
+            }
+        }
+
         stage('Docker version rebuild') {
             agent {
                 label 'ubuntu'
@@ -31,7 +45,7 @@ pipeline {
         }
 
         stage('Push docker image to DockerHub') {
-            steps{
+            steps {
                 withDockerRegistry(credentialsId: 'docker-hub-cred', url: 'https://index.docker.io/v1/') {
                     sh '''
                         docker push danwhite123/nginx-image:latest && docker push danwhite123/apache-image:latest
@@ -91,18 +105,5 @@ pipeline {
                 sh 'docker run -d -p 80:80 --name nginx --network=my_network danwhite123/nginx-image:latest'
             }
         }
-
-//         stage('Run Ansible Playbook') {
-//             agent {
-//                 label 'master'
-//             }
-//             steps {
-//                 ansiblePlaybook(
-//                     playbook: 'ansible/installer_of_docker_and_jdk.yml',
-//                     inventory: 'ansible/hosts.txt',
-//                     hostKeyChecking: 'false'
-//                 )
-//             }
-//         }
     }
 }
