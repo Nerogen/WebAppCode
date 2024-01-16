@@ -3,7 +3,7 @@ pipeline {
 
     stages {
 
-        stage('Docker version rebuil') {
+        stage('Docker version rebuild') {
             agent {
                 label 'ubuntu'
             }
