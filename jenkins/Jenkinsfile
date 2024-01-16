@@ -78,6 +78,7 @@ pipeline {
             agent {
                 label 'ubuntu'
             }
+            steps {
                 sh 'docker run -d -p 8080:80 --name apache --network=my_network danwhite123/apache-image:latest'
             }
         }
