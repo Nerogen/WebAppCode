@@ -55,6 +55,28 @@ pipeline {
 //             }
 //         }
 
+        stage('Creating or Deleting network for containers') {
+            agent {
+                label 'ubuntu'
+            }
+            steps {
+                script {
+                    // Check if the network exists
+                    def networkExists = sh(script: 'docker network inspect my_network', returnStatus: true).trim() == 0 ? true : false
+
+                    // If the network exists, delete it
+                    if (networkExists) {
+                        sh 'docker network rm my_network'
+                        echo 'Existing network deleted.'
+                    }
+
+                    // Create the network
+                    sh 'docker network create my_network'
+                    echo 'Network created.'
+                }
+            }
+        }
+
         stage('test') {
         agent {
                  label 'ubuntu'
