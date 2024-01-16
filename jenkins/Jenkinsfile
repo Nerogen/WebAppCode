@@ -24,12 +24,16 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+        stage('Run Ansible Playbook') {
             agent {
                 label 'master'
             }
             steps {
-                sh 'ansible-playbook ansible/installer_of_docker_and_jdk.yml'
+                ansiblePlaybook(
+                    playbook: 'ansible/installer_of_docker_and_jdk.yml',
+                    inventory: 'ansible/hosts.txt'
+                    hostKeyChecking: false
+                )
             }
         }
     }
