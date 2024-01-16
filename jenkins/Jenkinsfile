@@ -56,11 +56,11 @@ pipeline {
                     // Delete all running containers
                     sh 'docker rm -f $(docker ps -aq) || true'
 
-                    // Delete all networks
-                    sh 'docker network rm $(docker network ls -q) || true'
+                    // Delete all networks (excluding built-in networks)
+                    sh 'docker network ls --format "{{.Name}}" | grep -vE "^(bridge|host|none)$" | xargs -r docker network rm'
 
                     // Delete all images
-                    sh 'docker rmi -f $(docker images -q) || true'
+                    sh 'docker images -q | xargs -r docker rmi'
                 }
             }
         }
