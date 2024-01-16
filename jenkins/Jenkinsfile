@@ -32,7 +32,7 @@ pipeline {
 
         stage('Push docker image to DockerHub') {
             steps{
-                withDockerRegistry(credentialsId: 'docker-hub-cred') {
+                withDockerRegistry(credentialsId: 'docker-hub-cred', url: 'https://index.docker.io/v1/') {
                     sh '''
                         docker push danwhite123/nginx-image:latest && docker push danwhite123/apache-image:latest
                     '''
