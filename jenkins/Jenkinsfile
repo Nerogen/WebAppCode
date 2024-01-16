@@ -41,7 +41,7 @@ pipeline {
         }
         stage('Delete docker image locally') {
             steps{
-                sh 'docker rmi danwhite123/nginx-image:latest danwhite123/apache-image:latest'
+                sh 'docker rmi danwhite123/nginx-image:latest && docker rmi danwhite123/apache-image:latest'
             }
         }
 
