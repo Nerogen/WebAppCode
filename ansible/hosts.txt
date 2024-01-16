@@ -1,2 +1,2 @@
 [ubuntu_group]
-instance1 ansible_host=54.236.235.202
+instance1 ansible_host=18.232.93.207
