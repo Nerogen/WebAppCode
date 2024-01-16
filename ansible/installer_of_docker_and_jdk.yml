@@ -60,3 +60,6 @@
           - fontconfig
           - openjdk-17-jre
         state: present
+
+  vars:
+    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
