@@ -24,15 +24,9 @@ pipeline {
             }
         }
 
-        stage('Run Ansible Playbook') {
-            agent {
-                label 'master'
-            }
+        stage('Deploy') {
             steps {
-                ansiblePlaybook(
-                    playbook: 'ansible/installer_of_docker_and_jdk.yml',
-                    cfg: 'ansible/ansible.cfg'
-                )
+                sh 'ansible-playbook ansible/installer_of_docker_and_jdk.yml'
             }
         }
     }
