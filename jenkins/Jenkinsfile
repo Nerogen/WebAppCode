@@ -31,6 +31,17 @@ pipeline {
             }
         }
 
+        stage('Test') {
+            steps{
+                dir('lesson-1') {
+                    sh "ls -la "
+                    sh "pwd"
+                }
+                    sh "ls -la "
+                    sh "pwd"
+            }
+        }
+
         stage('Build docker image') {
             steps {
                 sh 'docker-compose build .'
