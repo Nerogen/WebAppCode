@@ -52,7 +52,7 @@ pipeline {
                 label 'ubuntu'
             }
             steps {
-                sh 'docker run -d -p 80:80 danwhite123/nginx-image:latest'
+                sh 'docker run -d -p 80:80 --name nginx danwhite123/nginx-image:latest'
             }
         }
 
@@ -61,7 +61,7 @@ pipeline {
                 label 'ubuntu'
             }
             steps {
-                sh 'docker run -d -p 8080:80 danwhite123/apache-image:latest'
+                sh 'docker run -d -p 8080:80 --name apache danwhite123/apache-image:latest'
             }
         }
 
