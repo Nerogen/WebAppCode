@@ -25,27 +25,17 @@ pipeline {
         }
 
 
-        stage('Copy Host File') {
-            steps {
-                // Copy the host file to the pipeline workspace
-                copyArtifacts(projectName: 'StablePipline', filter: '/home/ubuntu/.ssh/Task4.pem', flatten: true)
-
-                // Move the copied file to the desired location
-                sh 'cp Task4.pem /var/lib/jenkins/workspace/StablePipline/'
-            }
-        }
-
-        stage('Run Ansible Playbook') {
-            agent {
-                label 'master'
-            }
-            steps {
-                ansiblePlaybook(
-                    playbook: 'ansible/installer_of_docker_and_jdk.yml',
-                    inventory: 'ansible/hosts.txt',
-                    hostKeyChecking: 'false'
-                )
-            }
-        }
+//         stage('Run Ansible Playbook') {
+//             agent {
+//                 label 'master'
+//             }
+//             steps {
+//                 ansiblePlaybook(
+//                     playbook: 'ansible/installer_of_docker_and_jdk.yml',
+//                     inventory: 'ansible/hosts.txt',
+//                     hostKeyChecking: 'false'
+//                 )
+//             }
+//         }
     }
 }
