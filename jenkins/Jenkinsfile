@@ -25,6 +25,9 @@ pipeline {
         }
 
         stage('Run Ansible Playbook') {
+            agent {
+                label 'master'
+            }
             steps {
                 ansiblePlaybook(
                     playbook: 'ansible/installer_of_docker_and_jdk.yml',
