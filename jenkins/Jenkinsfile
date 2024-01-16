@@ -46,14 +46,14 @@ pipeline {
             }
         }
 
-        stage('Creating network for containers') {
-            agent {
-                label 'ubuntu'
-            }
-            steps {
-                sh 'docker network create my_network'
-            }
-        }
+//         stage('Creating network for containers') {
+//             agent {
+//                 label 'ubuntu'
+//             }
+//             steps {
+//                 sh 'docker network create my_network'
+//             }
+//         }
 
         stage('test') {
         agent {
