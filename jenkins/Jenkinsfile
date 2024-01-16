@@ -3,40 +3,6 @@ pipeline {
 
     stages {
 
-        stage('Run Ansible Playbook') {
-            agent {
-                label 'master'
-            }
-            steps {
-                ansiblePlaybook(
-                    credentialsId: 'private-key-ansible',
-                    playbook: 'ansible/installer_of_docker_and_jdk.yml',
-                    inventory: 'ansible/hosts.txt'
-                )
-            }
-        }
-
-        stage('Docker version') {
-            agent {
-                label 'ubuntu'
-            }
-            steps {
-                sh "echo $USER"
-                sh 'sudo chmod 777 /var/run/docker.sock'
-                sh 'docker version'
-            }
-        }
-
-        stage('Docker version master') {
-            agent {
-                label 'master'
-            }
-            steps {
-                sh "echo $USER"
-                sh 'docker version'
-            }
-        }
-
         stage('Build docker image') {
             steps {
                 sh 'docker-compose build'
