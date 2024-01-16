@@ -32,13 +32,9 @@ pipeline {
         }
 
         stage('Test') {
-            steps{
-                dir('lesson-1') {
-                    sh "ls -la "
-                    sh "pwd"
-                }
-                    sh "ls -la "
-                    sh "pwd"
+            steps {
+                sh "ls -la "
+                sh "pwd"
             }
         }
 
