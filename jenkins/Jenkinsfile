@@ -60,16 +60,33 @@ pipeline {
                 label 'ubuntu'
             }
             steps {
+                // Check if the Apache container exists
+                def apacheContainerExists = sh(script: 'docker ps -q -f name=apache', returnStatus: true).trim() == 0 ? false : true
+
+                // Stop and remove the Apache container if it exists
+                if (apacheContainerExists) {
+                    sh 'docker stop apache'
+                    sh 'docker rm apache'
+                    sh 'docker rmi danwhite123/apache-image:latest'
+                }
                 sh 'docker run -d -p 8080:80 --name apache --network=my_network danwhite123/apache-image:latest'
             }
         }
-
 
         stage('Run docker container nginx') {
             agent {
                 label 'ubuntu'
             }
             steps {
+                // Check if the Nginx container exists
+                def nginxContainerExists = sh(script: 'docker ps -q -f name=nginx', returnStatus: true).trim() == 0 ? false : true
+
+                // Stop and remove the Nginx container if it exists
+                if (nginxContainerExists) {
+                    sh 'docker stop nginx'
+                    sh 'docker rm nginx'
+                    sh 'docker rmi danwhite123/nginx-image:latest'
+                }
                 sh 'docker run -d -p 80:80 --name nginx --network=my_network danwhite123/nginx-image:latest'
             }
         }
