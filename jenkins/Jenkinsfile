@@ -46,17 +46,18 @@ pipeline {
             }
         }
 
-        stages {
+
+
+        stage('Build and Run Docker Compose') {
         agent {
                 label 'ubuntu'
             }
-        stage('Build and Run Docker Compose') {
             steps {
                 script {
                     dockerComposeUp(upOptions: '--detach', buildFile: 'docker-compose.yml')
                 }
             }
-        }
+
 
         // Другие этапы вашего пайплайна
     }
