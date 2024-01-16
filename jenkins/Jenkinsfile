@@ -46,49 +46,33 @@ pipeline {
             }
         }
 
-
-
-        stage('Build and Run Docker Compose') {
-        agent {
+        stage('Creating network for containers') {
+            agent {
                 label 'ubuntu'
             }
             steps {
-                script {
-                    dockerComposeUp(upOptions: '--detach', buildFile: 'docker-compose.yml')
-                }
+                sh 'docker network create my_network'
             }
+        }
+
+        stage('Run docker container apache') {
+            agent {
+                label 'ubuntu'
+            }
+            steps {
+                sh 'docker run -d -p 8080:80 --name apache --network=my_network danwhite123/apache-image:latest'
+            }
+        }
 
 
-        // Другие этапы вашего пайплайна
-    }
-
-//         stage('Creating network for containers') {
-//             agent {
-//                 label 'ubuntu'
-//             }
-//             steps {
-//                 sh 'docker network create my_network'
-//             }
-//         }
-//
-//         stage('Run docker container apache') {
-//             agent {
-//                 label 'ubuntu'
-//             }
-//             steps {
-//                 sh 'docker run -d -p 8080:80 --name apache danwhite123/apache-image:latest'
-//             }
-//         }
-//
-//
-//         stage('Run docker container nginx') {
-//             agent {
-//                 label 'ubuntu'
-//             }
-//             steps {
-//                 sh 'docker run -d -p 80:80 --name nginx danwhite123/nginx-image:latest'
-//             }
-//         }
+        stage('Run docker container nginx') {
+            agent {
+                label 'ubuntu'
+            }
+            steps {
+                sh 'docker run -d -p 80:80 --name nginx --network=my_network danwhite123/nginx-image:latest'
+            }
+        }
 
 //         stage('Run Ansible Playbook') {
 //             agent {
