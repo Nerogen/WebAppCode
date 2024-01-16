@@ -35,17 +35,6 @@ pipeline {
             }
         }
 
-
-        stage('Copy Host File') {
-            steps {
-                // Copy the host file to the pipeline workspace
-                copyArtifacts(projectName: 'StablePipline', filter: '/home/ubuntu/.ssh/Task4.pem', flatten: true)
-
-                // Move the copied file to the desired location
-                sh '/home/ubuntu/.ssh/Task4.pem /var/lib/jenkins/workspace/StablePipline/'
-            }
-        }
-
         stage('Run Ansible Playbook') {
             agent {
                 label 'master'
