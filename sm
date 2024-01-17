@@ -2,7 +2,7 @@ pipeline {
     agent any
     stages {
 
-        stage('Docker versio') {
+        stage('Docker verso') {
             agent {
                 label 'ubuntu'
             }
